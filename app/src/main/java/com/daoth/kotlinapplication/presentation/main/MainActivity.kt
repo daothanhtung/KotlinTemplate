@@ -1,20 +1,30 @@
 package com.daoth.kotlinapplication.presentation.main
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.daoth.kotlinapplication.KotlinApplication
 import com.daoth.kotlinapplication.R
+import com.daoth.kotlinapplication.domain.serivce.DatabaseService
+import com.daoth.kotlinapplication.domain.serivce.RemoteService
+import com.daoth.kotlinapplication.presentation.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    @Inject
+    lateinit var databaseService: DatabaseService
+
+    @Inject
+    lateinit var remoteService: RemoteService
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        KotlinApplication.appComponent!!.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
